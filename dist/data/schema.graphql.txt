@@ -1,0 +1,1411 @@
+type Query {
+  """"""
+  userById(_id: MongoID!): User
+
+  """"""
+  userByIds(_ids: [MongoID]!, limit: Int = 1000, sort: SortFindByIdsUserInput): [User]
+
+  """"""
+  userOne(
+    """Filter by fields"""
+    filter: FilterFindOneUserInput
+    skip: Int
+    sort: SortFindOneUserInput
+  ): User
+
+  """"""
+  userMany(
+    """Filter by fields"""
+    filter: FilterFindManyUserInput
+    skip: Int
+    limit: Int = 1000
+    sort: SortFindManyUserInput
+  ): [User]
+
+  """"""
+  userCount(
+    """Filter by fields"""
+    filter: FilterUserInput
+  ): Int
+
+  """"""
+  userConnection(
+    """Forward pagination argument for returning at most first edges"""
+    first: Int
+
+    """Forward pagination argument for returning at most first edges"""
+    after: String
+
+    """Backward pagination argument for returning at most last edges"""
+    last: Int
+
+    """Backward pagination argument for returning at most last edges"""
+    before: String
+
+    """Filter by fields"""
+    filter: FilterFindManyUserInput
+
+    """Sort argument for data ordering"""
+    sort: SortConnectionUserEnum = _ID_DESC
+  ): UserConnection
+
+  """"""
+  userPagination(
+    """Page number for displaying"""
+    page: Int
+
+    """"""
+    perPage: Int = 20
+
+    """Filter by fields"""
+    filter: FilterFindManyUserInput
+    sort: SortFindManyUserInput
+  ): UserPagination
+
+  """"""
+  serviceById(_id: MongoID!): Service
+
+  """"""
+  serviceByIds(_ids: [MongoID]!, limit: Int = 1000, sort: SortFindByIdsServiceInput): [Service]
+
+  """"""
+  serviceOne(
+    """Filter by fields"""
+    filter: FilterFindOneServiceInput
+    skip: Int
+    sort: SortFindOneServiceInput
+  ): Service
+
+  """"""
+  serviceMany(
+    """Filter by fields"""
+    filter: FilterFindManyServiceInput
+    skip: Int
+    limit: Int = 1000
+    sort: SortFindManyServiceInput
+  ): [Service]
+
+  """"""
+  serviceCount(
+    """Filter by fields"""
+    filter: FilterServiceInput
+  ): Int
+
+  """"""
+  serviceConnection(
+    """Forward pagination argument for returning at most first edges"""
+    first: Int
+
+    """Forward pagination argument for returning at most first edges"""
+    after: String
+
+    """Backward pagination argument for returning at most last edges"""
+    last: Int
+
+    """Backward pagination argument for returning at most last edges"""
+    before: String
+
+    """Filter by fields"""
+    filter: FilterFindManyServiceInput
+
+    """Sort argument for data ordering"""
+    sort: SortConnectionServiceEnum = _ID_DESC
+  ): ServiceConnection
+
+  """"""
+  servicePagination(
+    """Page number for displaying"""
+    page: Int
+
+    """"""
+    perPage: Int = 20
+
+    """Filter by fields"""
+    filter: FilterFindManyServiceInput
+    sort: SortFindManyServiceInput
+  ): ServicePagination
+}
+
+type User {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID!
+  updatedAt: Date
+  createdAt: Date
+}
+
+enum EnumUserUserType {
+  provider
+  consumer
+}
+
+"""
+The `ID` scalar type represents a unique MongoDB identifier in collection. MongoDB by default use 12-byte ObjectId value (https://docs.mongodb.com/manual/reference/bson-types/#objectid). But MongoDB also may accepts string or integer as correct values for _id field.
+"""
+scalar MongoID
+
+scalar Date
+
+enum SortFindByIdsUserInput {
+  _ID_ASC
+  _ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+""""""
+input FilterFindOneUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterFindOneUserInput
+  OR: [FilterFindOneUserInput!]
+  AND: [FilterFindOneUserInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterFindOneUserInput {
+  email: EmailOperatorsFilterFindOneUserInput
+  _id: _idOperatorsFilterFindOneUserInput
+  createdAt: CreatedAtOperatorsFilterFindOneUserInput
+}
+
+input EmailOperatorsFilterFindOneUserInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+}
+
+input _idOperatorsFilterFindOneUserInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterFindOneUserInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortFindOneUserInput {
+  _ID_ASC
+  _ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+""""""
+input FilterFindManyUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterFindManyUserInput
+  OR: [FilterFindManyUserInput!]
+  AND: [FilterFindManyUserInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterFindManyUserInput {
+  email: EmailOperatorsFilterFindManyUserInput
+  _id: _idOperatorsFilterFindManyUserInput
+  createdAt: CreatedAtOperatorsFilterFindManyUserInput
+}
+
+input EmailOperatorsFilterFindManyUserInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+}
+
+input _idOperatorsFilterFindManyUserInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterFindManyUserInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortFindManyUserInput {
+  _ID_ASC
+  _ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+""""""
+input FilterUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterUserInput
+  OR: [FilterUserInput!]
+  AND: [FilterUserInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterUserInput {
+  email: EmailOperatorsFilterUserInput
+  _id: _idOperatorsFilterUserInput
+  createdAt: CreatedAtOperatorsFilterUserInput
+}
+
+input EmailOperatorsFilterUserInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+}
+
+input _idOperatorsFilterUserInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterUserInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Total object count."""
+  count: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Information to aid in pagination."""
+  edges: [UserEdge!]!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge"""
+  node: User!
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+enum SortConnectionUserEnum {
+  _ID_DESC
+  _ID_ASC
+  EMAIL_DESC
+  EMAIL_ASC
+}
+
+"""List of items with pagination."""
+type UserPagination {
+  """Total object count."""
+  count: Int
+
+  """Array of objects."""
+  items: [User]
+
+  """Information to aid in pagination."""
+  pageInfo: PaginationInfo!
+}
+
+type PaginationInfo {
+  currentPage: Int!
+  perPage: Int!
+  pageCount: Int
+  itemCount: Int
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+}
+
+type Service {
+  name: String
+  provider: User
+  consumer: User
+  schemaType: EnumServiceSchemaType
+  _id: MongoID!
+  updatedAt: Date
+  createdAt: Date
+}
+
+enum EnumServiceSchemaType {
+  class
+  service
+}
+
+enum SortFindByIdsServiceInput {
+  _ID_ASC
+  _ID_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+""""""
+input FilterFindOneServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterFindOneServiceInput
+  OR: [FilterFindOneServiceInput!]
+  AND: [FilterFindOneServiceInput!]
+}
+
+input UserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterFindOneServiceInput {
+  _id: _idOperatorsFilterFindOneServiceInput
+  createdAt: CreatedAtOperatorsFilterFindOneServiceInput
+}
+
+input _idOperatorsFilterFindOneServiceInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterFindOneServiceInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortFindOneServiceInput {
+  _ID_ASC
+  _ID_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+""""""
+input FilterFindManyServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterFindManyServiceInput
+  OR: [FilterFindManyServiceInput!]
+  AND: [FilterFindManyServiceInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterFindManyServiceInput {
+  _id: _idOperatorsFilterFindManyServiceInput
+  createdAt: CreatedAtOperatorsFilterFindManyServiceInput
+}
+
+input _idOperatorsFilterFindManyServiceInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterFindManyServiceInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortFindManyServiceInput {
+  _ID_ASC
+  _ID_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+""""""
+input FilterServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterServiceInput
+  OR: [FilterServiceInput!]
+  AND: [FilterServiceInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterServiceInput {
+  _id: _idOperatorsFilterServiceInput
+  createdAt: CreatedAtOperatorsFilterServiceInput
+}
+
+input _idOperatorsFilterServiceInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterServiceInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+"""A connection to a list of items."""
+type ServiceConnection {
+  """Total object count."""
+  count: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Information to aid in pagination."""
+  edges: [ServiceEdge!]!
+}
+
+"""An edge in a connection."""
+type ServiceEdge {
+  """The item at the end of the edge"""
+  node: Service!
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+enum SortConnectionServiceEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+"""List of items with pagination."""
+type ServicePagination {
+  """Total object count."""
+  count: Int
+
+  """Array of objects."""
+  items: [Service]
+
+  """Information to aid in pagination."""
+  pageInfo: PaginationInfo!
+}
+
+type Mutation {
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  userCreateOne(record: CreateOneUserInput!): CreateOneUserPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  userCreateMany(records: [CreateManyUserInput!]!): CreateManyUserPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  userUpdateById(record: UpdateByIdUserInput!): UpdateByIdUserPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  userUpdateOne(
+    record: UpdateOneUserInput!
+
+    """Filter by fields"""
+    filter: FilterUpdateOneUserInput
+    sort: SortUpdateOneUserInput
+    skip: Int
+  ): UpdateOneUserPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation. 
+  """
+  userUpdateMany(
+    record: UpdateManyUserInput!
+
+    """Filter by fields"""
+    filter: FilterUpdateManyUserInput
+    sort: SortUpdateManyUserInput
+    skip: Int
+    limit: Int = 1000
+  ): UpdateManyUserPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  userRemoveById(_id: MongoID!): RemoveByIdUserPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  userRemoveOne(
+    """Filter by fields"""
+    filter: FilterRemoveOneUserInput
+    sort: SortRemoveOneUserInput
+  ): RemoveOneUserPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation. 
+  """
+  userRemoveMany(
+    """Filter by fields"""
+    filter: FilterRemoveManyUserInput!
+  ): RemoveManyUserPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  serviceCreateOne(record: CreateOneServiceInput!): CreateOneServicePayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  serviceCreateMany(records: [CreateManyServiceInput!]!): CreateManyServicePayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  serviceUpadateById(record: UpdateByIdServiceInput!): UpdateByIdServicePayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  serviceUpdateOne(
+    record: UpdateOneServiceInput!
+
+    """Filter by fields"""
+    filter: FilterUpdateOneServiceInput
+    sort: SortUpdateOneServiceInput
+    skip: Int
+  ): UpdateOneServicePayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation. 
+  """
+  serviceUpdateMany(
+    record: UpdateManyServiceInput!
+
+    """Filter by fields"""
+    filter: FilterUpdateManyServiceInput
+    sort: SortUpdateManyServiceInput
+    skip: Int
+    limit: Int = 1000
+  ): UpdateManyServicePayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  serviceRemoveById(_id: MongoID!): RemoveByIdServicePayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  serviceRemoveOne(
+    """Filter by fields"""
+    filter: FilterRemoveOneServiceInput
+    sort: SortRemoveOneServiceInput
+  ): RemoveOneServicePayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation. 
+  """
+  serviceRemoveMany(
+    """Filter by fields"""
+    filter: FilterRemoveManyServiceInput!
+  ): RemoveManyServicePayload
+}
+
+type CreateOneUserPayload {
+  """Created document ID"""
+  recordId: MongoID
+
+  """Created document"""
+  record: User
+}
+
+""""""
+input CreateOneUserInput {
+  name: String!
+  email: String!
+  userType: EnumUserUserType
+  updatedAt: Date
+  createdAt: Date
+}
+
+type CreateManyUserPayload {
+  """Created document ID"""
+  recordIds: [MongoID]!
+
+  """Created documents"""
+  records: [User]!
+
+  """Count of all documents created"""
+  createCount: Int!
+}
+
+""""""
+input CreateManyUserInput {
+  name: String!
+  email: String!
+  userType: EnumUserUserType
+  updatedAt: Date
+  createdAt: Date
+}
+
+type UpdateByIdUserPayload {
+  """Updated document ID"""
+  recordId: MongoID
+
+  """Updated document"""
+  record: User
+}
+
+""""""
+input UpdateByIdUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID!
+  updatedAt: Date
+  createdAt: Date
+}
+
+type UpdateOneUserPayload {
+  """Updated document ID"""
+  recordId: MongoID
+
+  """Updated document"""
+  record: User
+}
+
+""""""
+input UpdateOneUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  updatedAt: Date
+  createdAt: Date
+}
+
+""""""
+input FilterUpdateOneUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterUpdateOneUserInput
+  OR: [FilterUpdateOneUserInput!]
+  AND: [FilterUpdateOneUserInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterUpdateOneUserInput {
+  email: EmailOperatorsFilterUpdateOneUserInput
+  _id: _idOperatorsFilterUpdateOneUserInput
+  createdAt: CreatedAtOperatorsFilterUpdateOneUserInput
+}
+
+input EmailOperatorsFilterUpdateOneUserInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+}
+
+input _idOperatorsFilterUpdateOneUserInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterUpdateOneUserInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortUpdateOneUserInput {
+  _ID_ASC
+  _ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+type UpdateManyUserPayload {
+  """Affected documents number"""
+  numAffected: Int
+}
+
+""""""
+input UpdateManyUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  updatedAt: Date
+  createdAt: Date
+}
+
+""""""
+input FilterUpdateManyUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterUpdateManyUserInput
+  OR: [FilterUpdateManyUserInput!]
+  AND: [FilterUpdateManyUserInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterUpdateManyUserInput {
+  email: EmailOperatorsFilterUpdateManyUserInput
+  _id: _idOperatorsFilterUpdateManyUserInput
+  createdAt: CreatedAtOperatorsFilterUpdateManyUserInput
+}
+
+input EmailOperatorsFilterUpdateManyUserInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+}
+
+input _idOperatorsFilterUpdateManyUserInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterUpdateManyUserInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortUpdateManyUserInput {
+  _ID_ASC
+  _ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+type RemoveByIdUserPayload {
+  """Removed document ID"""
+  recordId: MongoID
+
+  """Removed document"""
+  record: User
+}
+
+type RemoveOneUserPayload {
+  """Removed document ID"""
+  recordId: MongoID
+
+  """Removed document"""
+  record: User
+}
+
+""""""
+input FilterRemoveOneUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterRemoveOneUserInput
+  OR: [FilterRemoveOneUserInput!]
+  AND: [FilterRemoveOneUserInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterRemoveOneUserInput {
+  email: EmailOperatorsFilterRemoveOneUserInput
+  _id: _idOperatorsFilterRemoveOneUserInput
+  createdAt: CreatedAtOperatorsFilterRemoveOneUserInput
+}
+
+input EmailOperatorsFilterRemoveOneUserInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+}
+
+input _idOperatorsFilterRemoveOneUserInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterRemoveOneUserInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortRemoveOneUserInput {
+  _ID_ASC
+  _ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+type RemoveManyUserPayload {
+  """Affected documents number"""
+  numAffected: Int
+}
+
+""""""
+input FilterRemoveManyUserInput {
+  name: String
+  email: String
+  userType: EnumUserUserType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterRemoveManyUserInput
+  OR: [FilterRemoveManyUserInput!]
+  AND: [FilterRemoveManyUserInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterRemoveManyUserInput {
+  email: EmailOperatorsFilterRemoveManyUserInput
+  _id: _idOperatorsFilterRemoveManyUserInput
+  createdAt: CreatedAtOperatorsFilterRemoveManyUserInput
+}
+
+input EmailOperatorsFilterRemoveManyUserInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+}
+
+input _idOperatorsFilterRemoveManyUserInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterRemoveManyUserInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+type CreateOneServicePayload {
+  """Created document ID"""
+  recordId: MongoID
+
+  """Created document"""
+  record: Service
+}
+
+""""""
+input CreateOneServiceInput {
+  name: String!
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  updatedAt: Date
+  createdAt: Date
+}
+
+type CreateManyServicePayload {
+  """Created document ID"""
+  recordIds: [MongoID]!
+
+  """Created documents"""
+  records: [Service]!
+
+  """Count of all documents created"""
+  createCount: Int!
+}
+
+""""""
+input CreateManyServiceInput {
+  name: String!
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  updatedAt: Date
+  createdAt: Date
+}
+
+type UpdateByIdServicePayload {
+  """Updated document ID"""
+  recordId: MongoID
+
+  """Updated document"""
+  record: Service
+}
+
+""""""
+input UpdateByIdServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID!
+  updatedAt: Date
+  createdAt: Date
+}
+
+type UpdateOneServicePayload {
+  """Updated document ID"""
+  recordId: MongoID
+
+  """Updated document"""
+  record: Service
+}
+
+""""""
+input UpdateOneServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  updatedAt: Date
+  createdAt: Date
+}
+
+""""""
+input FilterUpdateOneServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterUpdateOneServiceInput
+  OR: [FilterUpdateOneServiceInput!]
+  AND: [FilterUpdateOneServiceInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterUpdateOneServiceInput {
+  _id: _idOperatorsFilterUpdateOneServiceInput
+  createdAt: CreatedAtOperatorsFilterUpdateOneServiceInput
+}
+
+input _idOperatorsFilterUpdateOneServiceInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterUpdateOneServiceInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortUpdateOneServiceInput {
+  _ID_ASC
+  _ID_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+type UpdateManyServicePayload {
+  """Affected documents number"""
+  numAffected: Int
+}
+
+""""""
+input UpdateManyServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  updatedAt: Date
+  createdAt: Date
+}
+
+""""""
+input FilterUpdateManyServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterUpdateManyServiceInput
+  OR: [FilterUpdateManyServiceInput!]
+  AND: [FilterUpdateManyServiceInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterUpdateManyServiceInput {
+  _id: _idOperatorsFilterUpdateManyServiceInput
+  createdAt: CreatedAtOperatorsFilterUpdateManyServiceInput
+}
+
+input _idOperatorsFilterUpdateManyServiceInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterUpdateManyServiceInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortUpdateManyServiceInput {
+  _ID_ASC
+  _ID_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+type RemoveByIdServicePayload {
+  """Removed document ID"""
+  recordId: MongoID
+
+  """Removed document"""
+  record: Service
+}
+
+type RemoveOneServicePayload {
+  """Removed document ID"""
+  recordId: MongoID
+
+  """Removed document"""
+  record: Service
+}
+
+""""""
+input FilterRemoveOneServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterRemoveOneServiceInput
+  OR: [FilterRemoveOneServiceInput!]
+  AND: [FilterRemoveOneServiceInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterRemoveOneServiceInput {
+  _id: _idOperatorsFilterRemoveOneServiceInput
+  createdAt: CreatedAtOperatorsFilterRemoveOneServiceInput
+}
+
+input _idOperatorsFilterRemoveOneServiceInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterRemoveOneServiceInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
+
+enum SortRemoveOneServiceInput {
+  _ID_ASC
+  _ID_DESC
+  CREATEDAT_ASC
+  CREATEDAT_DESC
+  CREATEDAT__UPDATEDAT_ASC
+  CREATEDAT__UPDATEDAT_DESC
+}
+
+type RemoveManyServicePayload {
+  """Affected documents number"""
+  numAffected: Int
+}
+
+""""""
+input FilterRemoveManyServiceInput {
+  name: String
+  provider: UserInput
+  consumer: UserInput
+  schemaType: EnumServiceSchemaType
+  _id: MongoID
+  updatedAt: Date
+  createdAt: Date
+  _ids: [MongoID]
+
+  """List of *indexed* fields that can be filtered via operators."""
+  _operators: OperatorsFilterRemoveManyServiceInput
+  OR: [FilterRemoveManyServiceInput!]
+  AND: [FilterRemoveManyServiceInput!]
+}
+
+"""For performance reason this type contains only *indexed* fields."""
+input OperatorsFilterRemoveManyServiceInput {
+  _id: _idOperatorsFilterRemoveManyServiceInput
+  createdAt: CreatedAtOperatorsFilterRemoveManyServiceInput
+}
+
+input _idOperatorsFilterRemoveManyServiceInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+}
+
+input CreatedAtOperatorsFilterRemoveManyServiceInput {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  ne: Date
+  in: [Date]
+  nin: [Date]
+}
