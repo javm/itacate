@@ -18,7 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-
 app.use(
   '/graphql',
   graphqlHTTP({
@@ -31,8 +30,4 @@ const http = require('http').createServer(app);
 
 http.listen(3000, () => {
   console.log('listening on *:3000');
-  //MongoClient.connect('mongodb://localhost:27017/anaest', { useUnifiedTopology: true }, function (err, client) {
-  //  if (err) throw err;
-  //  db = client.db('anaest');
-  //});
 });

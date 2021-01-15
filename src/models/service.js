@@ -11,6 +11,10 @@ export const ServiceSchema = new Schema(
       trim: true,
       required: true
     },
+    description: {
+      type: String,
+      trim: true
+    },
     provider: UserSchema,
     consumer: UserSchema,
     schemaType: {
